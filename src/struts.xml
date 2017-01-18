@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<include file="struts-default.xml" />
+	<package name="ynwi" extends="struts-default">
+		<action name="register" class="regAction">
+			<result name="input">/Register.jsp</result>
+			<result name="success">/Success.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="check" class="checkAction">
+			<result name="input">/Login.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="memberreg" class="memberregAction">
+			<result name="input">/memberreg.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="memberupd" class="memberupdAction">
+			<result name="input">/MemberUpd.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="memberfind" class="memberfindAction">
+			<result name="input">/MemberShow.jsp</result>
+			<result name="success">/MemberShow.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="record" class="recordAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Recordlist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="comreg" class="comregAction">
+			<result name="input">/CPCreate.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="membersti" class="memberstiAction">
+			<result name="input">/MemberShow.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="membersto" class="memberstoAction">
+			<result name="input">/MemberShow.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="memberp" class="memberp">
+			<result name="input">/MemberShow.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="buyaction" class="buyAction">
+			<result name="input">/Buy.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="permitaction" class="permitAction">
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="allcpaction" class="allcpAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Cplist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="allstoreaction" class="allstoreAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Storelist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="allmemberaction" class="allmemberAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Memberlist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="allorderaction" class="allorderAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Odlist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="allbuyaction" class="allbuyAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Buylist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="allclerkaction" class="allclerkAction">
+			<result name="input">/redirect.jsp</result>
+			<result name="success">/Clerklist.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="storecreateaction" class="storecreateAction">
+			<result name="input">/StoreCreate.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="clerkcreateaction" class="clerkcreateAction">
+			<result name="input">/ClerkCreate.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		
+		<action name="ordercreate" class="ordercreate">
+			<result name="input">/OrderCreate.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+		<action name="ordersell" class="ordersell">
+			<result name="input">/Odlist.jsp</result>
+			<result name="success">/redirect.jsp</result>
+			<result name="error">/Fail.jsp</result>
+		</action>
+	</package>
+
+</struts>

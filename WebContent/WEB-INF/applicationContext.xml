@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 定义数据源的信息 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://localhost:3306/assignment</value>
+		</property>
+		<property name="user">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>mysql</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>80</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>20</value>
+		</property>
+	</bean>
+
+	<!--定义Hibernate的SessionFactory -->
+	<!-- SessionFactory使用的数据源为上面的数据源 -->
+	<!-- 指定了Hibernate的映射文件和配置信息 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/edu/nju/zj/beans/User.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="baseDao" class="cn.edu.nju.zj.daoImpl.UserDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="memberDao" class="cn.edu.nju.zj.daoImpl.MemberDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="comDao" class="cn.edu.nju.zj.daoImpl.ComDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="buyDao" class="cn.edu.nju.zj.daoImpl.BuydaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="storeDao" class="cn.edu.nju.zj.daoImpl.StoreDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="orderDao" class="cn.edu.nju.zj.daoImpl.OrderDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--用户注册业务逻辑类 -->
+	<bean id="userManager" class="cn.edu.nju.zj.serviceImpl.UserManagerImpl">
+		<property name="dao">
+			<ref bean="baseDao" />
+		</property>
+	</bean>
+	
+	<bean id="memberManager" class="cn.edu.nju.zj.serviceImpl.MemberManagerImpl">
+		<property name="dao">
+			<ref bean="memberDao" />
+		</property>
+	</bean>
+
+	<bean id="comManager" class="cn.edu.nju.zj.serviceImpl.ComManagerImpl">
+		<property name="dao">
+			<ref bean="comDao" />
+		</property>
+	</bean>
+	
+	<bean id="buyManager" class="cn.edu.nju.zj.serviceImpl.BuyManagerImpl">
+		<property name="dao">
+			<ref bean="buyDao" />
+		</property>
+		<property name="dao2">
+			<ref bean="comDao" />
+		</property>
+	</bean>
+	
+	<bean id="storeManager" class="cn.edu.nju.zj.serviceImpl.StoreManagerImpl">
+		<property name="dao">
+			<ref bean="storeDao" />
+		</property>
+	</bean>
+	
+	<bean id="orderManager" class="cn.edu.nju.zj.serviceImpl.OrderManagerImpl">
+		<property name="dao">
+			<ref bean="orderDao" />
+		</property>
+	</bean>
+
+	<!-- 用户注册的Action -->
+	<bean id="regAction" class="cn.edu.nju.zj.action.RegisterAction">
+		<property name="userManager">
+			<ref bean="userManager" />
+		</property>
+	</bean>
+
+	<!-- more bean definitions go here -->
+	<!-- 用户登录的Action -->
+	<bean id="checkAction" class="cn.edu.nju.zj.action.CheckAction">
+		<property name="userManager">
+			<ref bean="userManager" />
+		</property>
+	</bean>
+	
+	<!-- 会员注册的Action -->
+	<bean id="memberregAction" class="cn.edu.nju.zj.action.MemberRegAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<!-- 会员更新的Action -->
+	<bean id="memberupdAction" class="cn.edu.nju.zj.action.MemberUpdAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<!-- 会员xunzhao的Action -->
+	<bean id="memberfindAction" class="cn.edu.nju.zj.action.MemberFindAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<!-- 会员xunzhao的Action -->
+	<bean id="memberstiAction" class="cn.edu.nju.zj.action.MemberStiAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<bean id="memberp" class="cn.edu.nju.zj.action.MemberPointAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<!-- 会员xunzhao的Action -->
+	<bean id="memberstoAction" class="cn.edu.nju.zj.action.MemberStopAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<bean id="recordAction" class="cn.edu.nju.zj.action.AllRecordAction">
+		<property name="memberManager">
+			<ref bean="memberManager" />
+		</property>
+	</bean>
+	
+	<bean id="comregAction" class="cn.edu.nju.zj.action.ComRegAction">
+		<property name="comManager">
+			<ref bean="comManager" />
+		</property>
+	</bean>
+	
+	<bean id="buyAction" class="cn.edu.nju.zj.action.BuyCreateAction">
+		<property name="buyManager">
+			<ref bean="buyManager" />
+		</property>
+		<property name="comManager">
+			<ref bean="comManager" />
+		</property>
+	</bean>
+	
+	<bean id="allcpAction" class="cn.edu.nju.zj.action.AllCpAction">
+		<property name="comManager">
+			<ref bean="comManager" />
+		</property>
+	</bean>
+	
+	<bean id="allstoreAction" class="cn.edu.nju.zj.action.AllStoreAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="allmemberAction" class="cn.edu.nju.zj.action.AllMemberAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="allbuyAction" class="cn.edu.nju.zj.action.AllBuyAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="allclerkAction" class="cn.edu.nju.zj.action.AllClerkAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="allorderAction" class="cn.edu.nju.zj.action.AllOdAction">
+		<property name="ordermanager">
+			<ref bean="orderManager" />
+		</property>
+	</bean>
+	
+	<bean id="permitAction" class="cn.edu.nju.zj.action.PermitAction">
+		<property name="comManager">
+			<ref bean="comManager" />
+		</property>
+	</bean>
+	
+	<bean id="storecreateAction" class="cn.edu.nju.zj.action.StoreCreateAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="clerkcreateAction" class="cn.edu.nju.zj.action.ClerkCreateAction">
+		<property name="storeManager">
+			<ref bean="storeManager" />
+		</property>
+	</bean>
+	
+	<bean id="ordercreate" class="cn.edu.nju.zj.action.OrderCreateAction">
+		<property name="ordermanager">
+			<ref bean="orderManager" />
+		</property>
+	</bean>
+	
+	<bean id="ordersell" class="cn.edu.nju.zj.action.OrderSellAction">
+		<property name="ordermanager">
+			<ref bean="orderManager" />
+		</property>
+	</bean>
+
+</beans>
